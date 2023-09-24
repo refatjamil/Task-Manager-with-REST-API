@@ -6,7 +6,7 @@
 
 <div class="col-12  my-5">
   <h1 class="text-dark Roboto my-5">
-    Task List 
+    Task 
   </h1>
   {% if messages %}
   {% for message in messages %}
@@ -14,5 +14,59 @@
   {% endfor %}
 {% endif %}
 
-  
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-10">
+
+
+      <div class="mb-5">
+
+        <form action="{% url 'create_task' %}" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input class="btn btn-dark ms-1" type="submit" value="Add">
+        </form>
+      </div>
+
+
+
+      <ol class="list-group list-group-numbered">
+        <h3 class="text-dark Roboto mb-3 mt-5 text-center" >All Task List</h3>
+
+        {% for task in task_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {% if task.mark %}
+            <del>{{ task.title }}</del> 
+          {% else %} 
+            {{task.title}} 
+          {% endif %}
+            <div class="btn-group" role="group">
+                <a href="{% url 'more_details' task.id %}" class="btn btn-warning btn-sm mx-3">View Details</a>
+                <form method="post" action="{% url 'task_delete' task.id %}" style="display: inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="method" value="DELETE">
+                  <button type="submit" class="btn btn-danger btn-sm mx-3">Delete</button>
+              </form>
+
+              <form action="{% url 'complete' task.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" class="btn  btn-success btn-sm" {% if task.mark %} value="Undo" {% else %} value="Complete" {% endif %}>
+            </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+
+    </div>
+  </div>
+</div>
+
+
+ 
+
+
+
 {% endblock content %}

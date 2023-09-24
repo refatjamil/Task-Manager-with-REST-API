@@ -1,0 +1,84 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-12  my-5">
+  <h1 class="text-dark Roboto my-5">
+    Task Details 
+  </h1>
+  {% if messages %}
+  {% for message in messages %}
+  <p {% if message.tags %} class="Roboto alert alert-{{message.tags}} mb-5 {% endif %} ">{{message}} </p>
+  {% endfor %}
+{% endif %}
+
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-8 mt-5">
+
+
+
+      <div class="card bg bg-warning border-dark mb-3 text-dark Roboto">
+        <div class="card-header">
+
+          <div class="container text-center"> 
+            <div class="row">
+              <div class="col">
+                <p class="text-sm-end"><b>Priority:</b> {% if task.priority %} {{task.priority}} {% endif %} </p>
+              </div>
+              <div class="col">
+                <p class="text-sm-end"><b>Due Date:</b>{% if task.d_time %} {{task.d_time}} {% endif %}</p>
+              </div>
+   
+          </div>
+        </div>
+
+        <div class="card-body text-dark">
+          <h5 class="card-title"><b>Task Title: </b>{% if task.title %} {{task.title}} {% endif %}</h5><br>
+
+          <p class="card-text"><b>Task Description: </b> {% if task.description %} {{task.description}} {% endif %}</p><br>
+          <p class="card-text"><b>Photo:</b></p>
+          <div class="row">
+
+            {% for ti in task_img %}
+            <div class="col-md-4">
+                <div class="card my-2">
+                    <img class="image-thumbail" src="{{ ti.img.url }}" alt="Card image cap">
+                    <form action="{% url 'delete_photo' ti.id %}" method="post" class="d-inline">
+                      {% csrf_token %}
+                      <input type="submit" class="btn  btn-danger btn-sm" value="Delete">
+                  </form>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+          
+        </div>
+      </div>
+
+      
+
+      </div>
+
+      <a href="{% url 'update_task' task.id %}" class=" btn btn-success btn-sm mx-3">Write Task</a>
+
+      <a href="{% url 'add_photo' task.id%}" class=" btn btn-dark btn-sm mx-3">Add Photo</a>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}
