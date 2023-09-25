@@ -5,9 +5,12 @@
 {% block content %}
 
 <div class="col-12  my-5">
+  <h4 class="text-dark Roboto my-5">User Name:{{user.username}} | User id:{{user.id}}</h4>
+
   <h1 class="text-dark Roboto my-5">
-    Task 
+    Task
   </h1>
+
   {% if messages %}
   {% for message in messages %}
   <p {% if message.tags %} class="Roboto alert alert-{{message.tags}} mb-5 {% endif %} ">{{message}} </p>
