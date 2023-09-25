@@ -64,6 +64,29 @@ python manage.py runserver
 
 - All tasks list: ```GET http://localhost:8000/api/task/```
 - Create a task: ```POST http://localhost:8000/api/task/```
-- Retrieve a task: ```GET http://localhost:8000/api/task/{pk}/```
-- Update a task: ```PUT or PATCH http://localhost:8000/api/task/{pk}/```
-- Delete a task: ```DELETE http://localhost:8000/api/task/{pk}/```
+  
+      In Body:  
+
+      {
+        "user": 1,
+        "title": "",
+        "description": "",
+        "d_time": "YYYY-MM-DD",
+        "priority": ""
+    }
+- Retrieve a task: ```GET http://localhost:8000/api/task/{task_id}/```
+- Update a task: ```PUT or PATCH http://localhost:8000/api/task/{task_id}/```
+
+      In Body:
+
+          {
+        "id": 33,
+        "user": 1,
+        "title": "hi",
+        "description": "hi i am refat",
+
+        "d_time": "2020-01-10T00:00:00Z",
+        "priority": "Low",
+        "mark": false
+    }
+- Delete a task: ```DELETE http://localhost:8000/api/task/{task_id}/```
