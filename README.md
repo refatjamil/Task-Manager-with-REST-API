@@ -4,8 +4,10 @@ A task management web app with REST API usin Django
 ## Demo
 
 #### The Task Page
-![K_S](https://raw.githubusercontent.com/rifatjamil54/Task-Manager-with-REST-API/dev.0.0.1/demo/Peek%202023-09-25%2009-29.gif)
+![K_S](https://raw.githubusercontent.com/rifatjamil54/Task-Manager-with-REST-API/afterDeadline/demo/task_demo.gif)
 
+#### Filter task by Priority
+![K_S](https://raw.githubusercontent.com/rifatjamil54/Task-Manager-with-REST-API/afterDeadline/demo/filter_demo.gif)
 
 ## Project Overview
 
@@ -19,6 +21,7 @@ The project includes user authentication features that allow users to register a
 2. View task details.
 3. Update task details.
 4. Attach photo with task.
+5. Filter task by Priority
 
 
 ## Installation and Setup
