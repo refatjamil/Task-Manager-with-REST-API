@@ -6,10 +6,10 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title']
         widgets = {
-        'title': forms.TextInput(attrs={'class': 'form-control Roboto', 'placeholder': 'Title'}),
+        'title': forms.TextInput(attrs={'class': 'form-control Roboto', 'placeholder': 'Task Title'}),
             }  
         labels = {
-        'title': 'Task Title',
+        'title': 'Add Task',
 
     }
 

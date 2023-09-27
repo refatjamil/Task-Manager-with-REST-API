@@ -11,5 +11,6 @@ urlpatterns = [
     path('add_photo/<int:id>/', views.add_photo, name='add_photo'),
     path('delete_photo/<int:id>/', views.delete_photo, name='delete_photo'),
     path('complete/<int:id>/', views.complete, name='complete'),
+    path('priority_filter/<str:priority>/', login_required(views.TaskListView.as_view()), name='priority_filter'),
 
 ]

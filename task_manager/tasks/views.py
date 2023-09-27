@@ -8,10 +8,36 @@ from django.urls import reverse
 class TaskListView(View):
     template_name = 'tasks/tasks.html'
 
-    def get(self, request):
-        tasks = Task.objects.all().filter(user=request.user)
+    def get(self, request, priority=None):
+        if priority is None:
+            tasks = Task.objects.all().filter(user=request.user).order_by('-id')
+            bgall = 'primary'
+            bgh = 'None'
+            bgm = None
+            bgl = None
+
+        elif priority == 'High':
+            tasks = Task.objects.all().filter(user=request.user, priority='High').order_by('-id')
+            bgall = None
+            bgh = 'primary'
+            bgm = None
+            bgl = None
+        elif priority == 'Medium':
+            tasks = Task.objects.all().filter(user=request.user, priority='Medium').order_by('-id')
+            bgall = None
+            bgh = None
+            bgm = 'primary'
+            bgl = None
+        else:
+            tasks = Task.objects.all().filter(user=request.user, priority='Low').order_by('-id')
+            bgall = None
+            bgh = None
+            bgm = None
+            bgl = 'primary'
+
         form = TaskForm()
-        context = {'task_list': tasks, 'form': form}
+        context = {'task_list': tasks, 'form': form, 'bgall':bgall, 'bgh':bgh, 'bgm':bgm, 'bgl':bgl}
+        
         return render(request, self.template_name, context)
 
 
