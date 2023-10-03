@@ -1,0 +1,101 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-12  my-5">
+  <h4 class="text-dark Roboto my-5">User Name:{{user.username}} | User id:{{user.id}}</h4>
+
+  <h1 class="text-dark Roboto my-5">
+    Task
+  </h1>
+
+  {% if messages %}
+  {% for message in messages %}
+  <p {% if message.tags %} class="Roboto alert alert-{{message.tags}} mb-5 {% endif %} ">{{message}} </p>
+  {% endfor %}
+{% endif %}
+
+<div class="mb-5">
+
+  <form action="{% url 'create_task' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-dark ms-1" type="submit" value="Add">
+  </form>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-9">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">Priority</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in task_list %}
+        <tr>
+          {% if task.mark %}
+          <td><del>{{ task.title }}</del></td>
+
+          {% else %} 
+          <td>{{ task.title }}</td>
+
+          {% endif %}
+
+          <td>{{ task.priority }}</td>
+
+          <td>
+            <div class="btn-group" role="group">
+              <a href="{% url 'more_details' task.id %}" class="btn btn-warning btn-sm mx-3">View Details</a>
+              <form method="post" action="{% url 'task_delete' task.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="method" value="DELETE">
+                <button type="submit" class="btn btn-danger btn-sm mx-3">Delete</button>
+            </form>
+
+            <form action="{% url 'complete' task.id %}" method="post" class="d-inline">
+              {% csrf_token %}
+              <input type="submit" class="btn  btn-success btn-sm" {% if task.mark %} value="Undo" {% else %} value="Complete" {% endif %}>
+          </form>
+
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+    </div>
+
+
+<div class="col-2">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+    Filter by  Priority
+    </div>
+    <ul class="list-group list-group-flush">
+      <a href="/" class="list-group-item bg {% if bgall %} bg-{{bgall}} {% endif %}">All</a>
+
+      <a href="{% url 'priority_filter' 'High' %}" class="list-group-item bg {% if bgh %} bg-{{bgh}} {% endif %}">High</a>
+      <a href="{% url 'priority_filter' 'Medium' %}" class="list-group-item {% if bgm %} bg-{{bgm}} {% endif %}">Medium</a>
+      <a href="{% url 'priority_filter' 'Low' %}" class="list-group-item {% if bgl %} bg-{{bgl}} {% endif %}">Low</a>
+    </ul>
+  </div>
+</div>
+    
+  </div>
+</div>
+
+
+ 
+
+
+
+{% endblock content %}
