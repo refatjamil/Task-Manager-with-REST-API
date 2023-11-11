@@ -1,6 +1,6 @@
 # Task-Manager-with-REST-API
 
-A task management web app with REST API usin Django
+A task management web app with REST API using Django
 ## Demo
 
 #### The Task Page
